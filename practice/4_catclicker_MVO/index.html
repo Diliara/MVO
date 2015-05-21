@@ -6,29 +6,28 @@
 <body>
 
 
-<div class="cat-list">
+<div id="cat-list">
 
 </div>
 
-<ul class="cat-view" style="list-style-type: none;">
+<div id="cat-view">
 
-</ul>
+</div>
 
 
 <script type="text/template" data-template="cat-list">
-    <button class="show-cat" data-id="{{name}}">{{name}}</button>
+    <button class="render-this-cat">{{name}}</button>
 </script>
 
 
 <script type="text/template" data-template="cat-view">
-    <li class="cat" data-id="{{name}}">
-        {{name}}
-        <div>
-            <a href="#" class="click-cat">
+    <div class="cat">
+        <h3>{{name}}</h3>
+            <a href="#" id="cat-click-me">
                 <img src="{{img}}">
             </a>
-        </div>
-    </li>
+        <p>Click count: {{clickCount}}</p>
+     </div>
 </script>
 
 
