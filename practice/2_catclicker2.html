@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cat clicker</title>
+</head>
+<body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+
+<script>
+
+
+    var $kitten1 = $('<div id="kitten1"><img title="Kitten 1" src="https://placekitten.com/g/200/300"></div>')
+    var $kitten2 = $('<div id="kitten2"><img title="Kitten 2" src="https://placekitten.com/g/200/300"></div>')
+
+    $("body").prepend($kitten2).prepend($kitten1);
+
+
+    var a = $kitten1.children(".noOfClicks").text();
+    var b = $kitten2.children(".noOfClicks").text();
+
+
+    $kitten1.prepend($('<h3>Cat 1</h3>')).append($('<p>Number of clicks: <span class="noOfClicks"></span> </p>'));
+    $kitten2.prepend($('<h3>Cat 2</h3>')).append($('<p>Number of clicks: <span class="noOfClicks"></span> </p>'));
+
+
+    $kitten1.children('img').click(function (e) {
+        a++;
+        $(this).next().children(".noOfClicks").html('<span class="noOfClicks">' + a + '</span>');
+    });
+
+    $kitten2.children('img').click(function (e) {
+        b++;
+        $(this).next().children(".noOfClicks").html('<span class="noOfClicks">' + b + '</span>');
+    });
+
+</script>
+
+
+</body>
+</html>

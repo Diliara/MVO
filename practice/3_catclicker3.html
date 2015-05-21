@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cat clicker 3</title>
+</head>
+<body>
+
+<div id="list">
+
+</div>
+
+<div id="view">
+
+
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+
+<script>
+
+
+    var kittens = ["Kitten 1", "Kitten 2", "Kitten 3"];
+
+    for (var i = 0; i < kittens.length; i++) {
+        var kitten = kittens[i];
+
+        var elem = $('<ul>');
+        elem.html('<li><a href="#">' + kitten + '</a></li>');
+        $('#list').append(elem);
+
+
+
+
+         var view = $('<img src="https://placekitten.com/g/200/300">' + '<p>Number of clicks: <span class="noOfClicks">0</span> </p>');
+
+
+        $('#view').html(view).hide();
+
+    }
+
+
+
+
+    /* elem.children('li').on(
+     'click', (function (kittenTitle) {
+
+
+     return function () {
+
+     var $cat = $(this).children('.info');
+
+
+     var counter = parseInt($(".noOfClicks").text());
+
+
+     $('.info').hide();
+     $cat.show();
+
+
+     $cat.children('img').click(function () {
+
+     counter = counter + 1;
+
+     $(this).next().find(".noOfClicks").html('<span class="noOfClicks">' + counter + '</span>');
+     });
+
+
+     // console.log(kittenTitle);
+     };
+
+
+     })(kitten)
+     );
+     */
+
+
+</script>
+
+
+</body>
+</html>
