@@ -101,7 +101,6 @@ $(function () {
         init: function () {
             // grab elements and html for using in the render function
             this.$catControls = $('#cat-list');
-            this.$renderThisCat = $('.render-this-cat');
             this.catControlsTemplate = $('script[data-template="cat-list"]').html();
             this.render();
         },
@@ -109,36 +108,39 @@ $(function () {
         render: function () {
             // Cache vars for use in forEach() callback (performance)
             var $catControls = this.$catControls,
-                $renderThisCat = this.$renderThisCat,
                 catControlsTemplate = this.catControlsTemplate;
-
 
             // render
             controller.getCats().forEach(function (cat) {
                 // Replace template markers with data
                 var thisTemplate = catControlsTemplate.replace(/{{name}}/g, cat.name);
-
-                /*
-                 $renderThisCat.click(function(){
-                 return function(){
-                 controller.setCurrentCat(cat);
-                 catView.render();
-                 }
-                 })(cat);
-                 */
-
-
-
-                $renderThisCat.on('click', function () {
-                    console.log("render this cat");
-                });
-
                 $catControls.append(thisTemplate);
-
-
-
             });
 
+            this.renderNewCat();
+
+
+        },
+
+        renderNewCat: function () {
+            this.$renderThisCat = $('.render-this-cat');
+            var $renderThisCat = this.$renderThisCat;
+
+            /*
+             $renderThisCat.click(function(){
+             return function(){
+             controller.setCurrentCat(cat);
+             catView.render();
+             }
+             })(cat);
+             */
+
+
+            $renderThisCat.on('click', function () {
+                console.log("render this cat " + $renderThisCat.text());
+               /* controller.setCurrentCat(cat); */
+                catView.render();
+            });
 
         }
     };
