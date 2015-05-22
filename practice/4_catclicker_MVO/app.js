@@ -8,20 +8,22 @@ $(function () {
                 name: "Alfa",
                 clickCount: 0,
                 img: "https://placekitten.com/g/200/300",
-                visible: true
+                visible: true,
+                id: "cat1"
             },
             {
                 name: "Betta",
                 clickCount: 0,
                 img: "https://placekitten.com/g/200/301",
-                visible: false
-
+                visible: false,
+                id: "cat2"
             },
             {
                 name: "Gamma",
                 clickCount: 0,
                 img: "https://placekitten.com/g/201/301",
-                visible: false
+                visible: false,
+                id: "cat3"
             }
         ]
     };
@@ -86,7 +88,7 @@ $(function () {
                 currentCat = controller.getCurrentCat(),
                 catTemplate = this.catTemplate;
 
-            // $catView.html('');
+            $catView.html('');
 
             // Replace template markers with data
             var thisTemplate = catTemplate.replace(/{{name}}/g, currentCat.name).replace(/{{img}}/g, currentCat.img).replace(/{{clickCount}}/g, currentCat.clickCount);
@@ -100,49 +102,47 @@ $(function () {
     var catListView = {
         init: function () {
             // grab elements and html for using in the render function
-            this.$catControls = $('#cat-list');
+            this.$catList = $('#cat-list');
             this.catControlsTemplate = $('script[data-template="cat-list"]').html();
             this.render();
         },
 
         render: function () {
             // Cache vars for use in forEach() callback (performance)
-            var $catControls = this.$catControls,
+            var cats = controller.getCats(),
+                $catList = this.$catList,
                 catControlsTemplate = this.catControlsTemplate;
 
-            // render
-            controller.getCats().forEach(function (cat) {
+            // loop over the cats
+            for (var i = 0; i < cats.length; i++) {
+                //this is a cat we are currently looping over
+                var cat = cats[i];
                 // Replace template markers with data
-                var thisTemplate = catControlsTemplate.replace(/{{name}}/g, cat.name);
-                $catControls.append(thisTemplate);
-            });
+                var thisTemplate = catControlsTemplate.replace(/{{name}}/g, cat.name).replace(/{{id}}/g, cat.id);
 
-            this.renderNewCat();
+                //template needs to be populated first for us to use $thisCat DOM element
+                $catList.append(thisTemplate);
 
+                var $thisCat = $("#" + cat.id);
 
-        },
-
-        renderNewCat: function () {
-            this.$renderThisCat = $('.render-this-cat');
-            var $renderThisCat = this.$renderThisCat;
-
-            /*
-             $renderThisCat.click(function(){
-             return function(){
-             controller.setCurrentCat(cat);
-             catView.render();
-             }
-             })(cat);
-             */
+                $thisCat.on('click', (function (cat) {
+                    return function () {
+                        controller.setCurrentCat(cat);
+                        console.log("render this cat " + cat);
+                        catView.render();
+                    };
+                })(cat));
 
 
-            $renderThisCat.on('click', function () {
-                console.log("render this cat " + $renderThisCat.text());
-               /* controller.setCurrentCat(cat); */
-                catView.render();
-            });
+            }
+
 
         }
+
+
+
+
+
     };
 
     controller.init();
