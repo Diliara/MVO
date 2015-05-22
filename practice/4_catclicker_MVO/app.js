@@ -1,6 +1,6 @@
 $(function () {
 
-//model
+    //model
     var model = {
         currentCat: null,
         cats: [
@@ -29,7 +29,7 @@ $(function () {
     };
 
 
-//controller
+    //controller
     var controller = {
 
         init: function () {
@@ -63,7 +63,7 @@ $(function () {
     }
 
 
-//view for cat-view
+    //view for cat-view
     var catView = {
         init: function () {
 
@@ -92,13 +92,22 @@ $(function () {
 
             // Replace template markers with data
             var thisTemplate = catTemplate.replace(/{{name}}/g, currentCat.name).replace(/{{img}}/g, currentCat.img).replace(/{{clickCount}}/g, currentCat.clickCount);
+
             $catView.append(thisTemplate);
+
+            var $catClickMe = $("#cat-click-me");
+
+            $catClickMe.on('click', function(){
+              controller.incrementCounter();
+            });
+
+
 
         }
     };
 
 
-//view for cat-list
+    //view for cat-list
     var catListView = {
         init: function () {
             // grab elements and html for using in the render function
@@ -126,23 +135,14 @@ $(function () {
                 var $thisCat = $("#" + cat.id);
 
                 $thisCat.on('click', (function (cat) {
+                    //closure-in-a-loop for adding event listeners inside a for loop
                     return function () {
                         controller.setCurrentCat(cat);
-                        console.log("render this cat " + cat);
                         catView.render();
                     };
                 })(cat));
-
-
             }
-
-
         }
-
-
-
-
-
     };
 
     controller.init();
